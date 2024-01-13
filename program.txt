@@ -1,6 +1,20 @@
 {
-	dim alfa, delta float;
+	dim alfa, delta int;
 	dim beta, charly bool;
 
-	alfa := 1.5;
+	#Комментарий#
+
+	alfa := 555 + 51;
+	charly := false;
+	beta := not charly;
+
+	readln delta, alfa, beta, charly;
+
+	if(charly = beta)
+		begin
+			alfa := alfa+1;
+			delta := alfa-1
+		end
+	else
+		charly := delta > alfa;
 }
