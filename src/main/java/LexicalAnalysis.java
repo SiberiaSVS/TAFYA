@@ -20,15 +20,19 @@ public class LexicalAnalysis {
     private final StringBuilder s = new StringBuilder();
     private char c;
     private String state = "H";
+    private boolean stop = false;
 
     public LexicalAnalysis() {
         Arrays.sort(tw);
         Arrays.sort(tl);
+        Tables.ti.clear();
+        Tables.tn.clear();
     }
 
     private void writeInFile(String string) {
         try {
             writer.write(string);
+            Main.ui.addLexemeInLexemesArea(string);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -38,17 +42,23 @@ public class LexicalAnalysis {
         try {
             File file = new File("lexeme.txt");
             if (file.createNewFile()) {
-                System.out.println("Файл создан");
+                Main.ui.log("Файл лексем создан");
             }
         } catch (IOException e) {
-            System.out.println("Ошибка при создании файла");
+            Main.ui.log("Ошибка при создании файла лексем");
             System.exit(1);
         }
         writer = new FileWriter("lexeme.txt");
         reader = new FileReader("program.txt");
+
+        Main.ui.log("Запущен лексический анализ");
+
         c = gc();
 
         while(!endOfFile) {
+            if(stop)
+                return;
+
             //Начало программы
             if(c == '{') {
                 state = "H";
@@ -190,6 +200,10 @@ public class LexicalAnalysis {
 
         reader.close();
         writer.close();
+
+        Main.ui.log("Лексический анализ успешно завершен");
+
+        new SyntaxAnalysis().analysis();
     }
 
     //Чтение следующего символа
@@ -525,8 +539,8 @@ public class LexicalAnalysis {
 
     private void er(String message) {
         state = "ER";
-        System.out.println("Лексическая ошибка: " + message);
-        System.exit(0);
+        Main.ui.log("Лексическая ошибка: " + message);
+        stop = true;
     }
 
     public boolean matchesFirstCharInTL(char c) {

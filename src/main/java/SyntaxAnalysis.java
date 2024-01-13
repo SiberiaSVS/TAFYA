@@ -19,6 +19,7 @@ public class SyntaxAnalysis {
     private final ArrayList<Integer> stack = new ArrayList<>();
     private final Stack<String> opStack = new Stack<>();
     private final ArrayList<TOP> top = new ArrayList<>();
+    private boolean stop = false;
 
     public void analysis(){
         top.add(new TOP(":=",  "int", "int", "int"));
@@ -64,6 +65,8 @@ public class SyntaxAnalysis {
         top.add(new TOP("and",  "bool", "bool", "bool"));
         top.add(new TOP("or",  "bool", "bool", "bool"));
 
+        Main.ui.log("Запущен синтаксический анализ");
+        Main.ui.log("Запущен семантический анализ");
 
         gl();
 
@@ -94,12 +97,13 @@ public class SyntaxAnalysis {
             er("Синтаксическая ошибка: не найдено описание или оператор");
         }
 
-        if(lex.EQ("}")) {
-            System.out.println("Ошибок не обнаружено");
-        }
-        else {
+        if(!lex.EQ("}")) {
             er("Синтаксическая ошибка: не найден символ конца программы");
         }
+        if(stop) return;
+
+        Main.ui.log("Синтаксический анализ успешно завершен");
+        Main.ui.log("Семантический анализ успешно завершен");
     }
 
     private boolean description(){//Описание
@@ -568,8 +572,8 @@ public class SyntaxAnalysis {
     }
 
     private void er(String message) {
-        System.out.println(message);
-        System.exit(0);
+        Main.ui.log(message);
+        stop = true;
     }
 
     private void checkId() {
@@ -584,10 +588,10 @@ public class SyntaxAnalysis {
     }
 
     private void checkOp() {
-        String type2 = opStack.pop();
-        String op = opStack.pop();
-        String type1 = opStack.pop();
-        getType(op, type1, type2);
+            String type2 = opStack.pop();
+            String op = opStack.pop();
+            String type1 = opStack.pop();
+            getType(op, type1, type2);
     }
 
     private void getType(String op, String t1, String t2) {

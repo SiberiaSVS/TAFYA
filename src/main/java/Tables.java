@@ -9,25 +9,30 @@ public class Tables {
     public static final ArrayList<Identifier> ti = new ArrayList<>();
 
     public static void printTables() {
-        System.out.println();
-        System.out.println("Таблица служебных слов");
+        Main.ui.printInTableArea("Таблица служебных слов");
         for(int i=0; i<tw.length; i++) {
-            System.out.println(i + " - " + tw[i]);
+            Main.ui.printInTableArea(i + ")  " + tw[i]);
         }
 
-        System.out.println("Таблица ограничителей");
+        Main.ui.printInTableArea();
+
+        Main.ui.printInTableArea("Таблица ограничителей");
         for(int i=0; i<tl.length; i++) {
-            System.out.println(i + " - " + tl[i]);
+            Main.ui.printInTableArea(i + ")  " + tl[i]);
         }
 
-        System.out.println("Таблица чисел");
+        Main.ui.printInTableArea();
+
+        Main.ui.printInTableArea("Таблица чисел");
         for(int i=0; i<tn.size(); i++) {
-            System.out.println(i + " - " + tn.get(i));
+            Main.ui.printInTableArea(i + ")  " + tn.get(i));
         }
 
-        System.out.println("Таблица идентификаторов");
+        Main.ui.printInTableArea();
+
+        Main.ui.printInTableArea("Таблица идентификаторов");
         for(int i=0; i<ti.size(); i++) {
-            System.out.println(i + " - " + ti.get(i).getName());
+            Main.ui.printInTableArea(i + ")  " + ti.get(i).getName());
         }
     }
 }
