@@ -1,0 +1,33 @@
+import java.util.ArrayList;
+
+public class Tables {
+    public static final String[] tw = {"dim", "if", "else", "begin", "end", "while", "next", "for", "to", "step", "readln", "writeln", "int", "float", "bool", "true", "false"};
+    //Таблица разделителей
+    public static final String[] tl = {"{", "}", "(", ")", "+", "-", "<>", "=", "<", "<=", ">", ">=", "*", "/", ";", ",", ":=", "#", "and", "not", "or"};
+    //Таблица чисел
+    public static final ArrayList<String> tn = new ArrayList<>();
+    public static final ArrayList<Identifier> ti = new ArrayList<>();
+
+    public static void printTables() {
+        System.out.println();
+        System.out.println("Таблица служебных слов");
+        for(int i=0; i<tw.length; i++) {
+            System.out.println(i + " - " + tw[i]);
+        }
+
+        System.out.println("Таблица ограничителей");
+        for(int i=0; i<tl.length; i++) {
+            System.out.println(i + " - " + tl[i]);
+        }
+
+        System.out.println("Таблица чисел");
+        for(int i=0; i<tn.size(); i++) {
+            System.out.println(i + " - " + tn.get(i));
+        }
+
+        System.out.println("Таблица идентификаторов");
+        for(int i=0; i<ti.size(); i++) {
+            System.out.println(i + " - " + ti.get(i).getName());
+        }
+    }
+}

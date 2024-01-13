@@ -1,0 +1,19 @@
+{
+	dim i, a int;
+	dim var float;
+	dim b bool;
+
+	for i := 0 to 10
+        begin
+            var := 10-5;
+            i := i + 1
+        end
+	next;
+
+	while (a < 1)
+	    begin
+	        var := a/2;
+	        readln a, b;
+	        writeln i, a
+	    end;
+}
