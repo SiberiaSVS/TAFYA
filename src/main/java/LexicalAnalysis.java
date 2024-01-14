@@ -88,7 +88,9 @@ public class LexicalAnalysis {
                     if (endOfFile) {
                         state = "ER";
                         er("Не найден символ конца комментария");
-                        System.exit(1);
+                        if(stop)
+                            return;
+                        break;
                     }
                     c = gc();
                 }
@@ -106,6 +108,8 @@ public class LexicalAnalysis {
                 else {
                     state = "ER";
                     er("Найден символ ':' вместо ':='");
+                    if(stop)
+                        return;
                     break;
                 }
             }

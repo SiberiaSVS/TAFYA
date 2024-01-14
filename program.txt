@@ -4,15 +4,15 @@
 
 	#Комментарий#
 
-	alfa := 555 + 51;
+	alfa := 55 + 51;
 	charly := false;
 	beta := not charly;
 
 	readln delta, alfa, beta, charly;
 
-	if(charly = beta)
+	if(alfa < delta)
 		begin
-			alfa := alfa+1;
+			alfa := alfa+23;
 			delta := alfa-1
 		end
 	else
