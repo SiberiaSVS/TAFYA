@@ -231,6 +231,9 @@ public class SyntaxAnalysis {
             er("Синтаксическая ошибка: не найдено выражение в условном операторе");
             return false;
         }
+        if(!opStack.pop().equals("bool")){
+            er("Семантическая ошибка: в условном операторе использован неверный тип");
+        }
         if(lex.EQ(")")) {
             gl();
         }
@@ -274,6 +277,9 @@ public class SyntaxAnalysis {
         if (!expression()) {
             return false;
         }
+        if(!opStack.pop().equals("bool")){
+            er("Семантическая ошибка: в операторе фиксированного цикла использован неверный тип");
+        }
         if(lex.EQ("step")) {
             gl();
             if(!expression()) {
@@ -312,6 +318,9 @@ public class SyntaxAnalysis {
         if(!expression()) {
             er("Синтаксическая ошибка: не найдено выражение в условном цикле");
             return false;
+        }
+        if(!opStack.pop().equals("bool")){
+            er("Семантическая ошибка: в условном операторе цикла использован неверный тип");
         }
         if(lex.EQ(")")) {
             gl();
