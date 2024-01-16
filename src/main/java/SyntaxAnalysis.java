@@ -224,7 +224,7 @@ public class SyntaxAnalysis {
             gl();
         }
         else {
-            er("Синтаксическая ошибка: не найден '(' в условном операторе");
+            er("Синтаксическая ошибка: нарушена парность скобок");
             return false;
         }
         if(!expression()) {
@@ -238,7 +238,7 @@ public class SyntaxAnalysis {
             gl();
         }
         else {
-            er("Синтаксическая ошибка: не найден ')' в условном операторе");
+            er("Синтаксическая ошибка: нарушена парность скобок");
             return false;
         }
         if(!operator()) {
@@ -312,7 +312,7 @@ public class SyntaxAnalysis {
             gl();
         }
         else {
-            er("Синтаксическая ошибка: не найден символ '(' после ключевого слова 'while'");
+            er("Синтаксическая ошибка: нарушена парность скобок");
             return false;
         }
         if(!expression()) {
@@ -326,7 +326,7 @@ public class SyntaxAnalysis {
             gl();
         }
         else {
-            er("Синтаксическая ошибка: не найден символ ')' в условном цикле");
+            er("Синтаксическая ошибка: нарушена парность скобок");
             return false;
         }
         if(!operator()) {
@@ -513,7 +513,7 @@ public class SyntaxAnalysis {
         else if(lex.EQ("(")) {
             gl();
             if(!expression()) {
-                er("Синтаксическая ошибка: не найдено выражение после '('");
+                er("Синтаксическая ошибка: не найдено выражение");
                 return false;
             }
             if(lex.EQ(")")) {
@@ -521,7 +521,7 @@ public class SyntaxAnalysis {
                 return true;
             }
             else {
-                er("Синтаксическая ошибка: не найден символ ')'");
+                er("Синтаксическая ошибка: нарушена парность скобок");
                 return false;
             }
         }
