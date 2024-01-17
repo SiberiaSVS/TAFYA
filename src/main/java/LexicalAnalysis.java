@@ -543,16 +543,31 @@ public class LexicalAnalysis {
         if(c == '+' || c == '-') {
             s.append(c);
             c = gc();
+            while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+                s.append(c);
+                c = gc();
+            }
+            if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
+                writeInFile(search(s));
+            }
+            else {
+                er("Ошибка в чтении числа");
+            }
         }
-        while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
-            s.append(c);
-            c = gc();
-        }
-        if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
-            writeInFile(search(s));
+        else if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+            while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+                s.append(c);
+                c = gc();
+            }
+            if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
+                writeInFile(search(s));
+            }
+            else {
+                er("Ошибка в чтении числа");
+            }
         }
         else {
-            er("Ошибка в чтении числа");
+            er("После е должно быть число");
         }
     }
 
