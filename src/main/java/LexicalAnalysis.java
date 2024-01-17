@@ -133,6 +133,8 @@ public class LexicalAnalysis {
             else if(state.equals("<")) {
                 state = "";
                 writeInFile(search(s));
+                s.delete(0, s.length());
+                continue;
             }
             else if (c == '>') {
                 state = ">";
@@ -148,6 +150,8 @@ public class LexicalAnalysis {
             else if (state.equals(">")) {
                 state = "";
                 writeInFile(search(s));
+                s.delete(0, s.length());
+                continue;
             }
             //Числа
             else if(c == '0' || c == '1') {
@@ -422,6 +426,8 @@ public class LexicalAnalysis {
 
     private void hex() {
         state = "16C";
+        s.append(c);
+        c = gc();
         while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
                 c == '5' || c == '6' || c == '7' || c == '8' || c == '9' ||
                 c == 'A' || c == 'B' || c == 'C' || c == 'D' || c == 'E' ||
@@ -457,6 +463,10 @@ public class LexicalAnalysis {
         state = "RN";
         s.append(c);
         c = gc();
+        if(c != '0' && c != '1' && c != '2' && c != '3' && c != '4' &&
+                c != '5' && c != '6' && c != '7' && c != '8' && c != '9') {
+            er("после '.' должно быть число");
+        }
         while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' ||
                 c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
             s.append(c);
@@ -477,7 +487,7 @@ public class LexicalAnalysis {
         state = "EF1";
         s.append(c);
         c = gc();
-        if(c == '+') {
+        if(c == '+' || c == '-') {
             s.append(c);
             c = gc();
             while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
@@ -491,7 +501,7 @@ public class LexicalAnalysis {
                 er("Ошибка в чтении числа");
             }
         }
-        else if(c == '-') {
+        else if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
             s.append(c);
             c = gc();
             while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
@@ -506,12 +516,20 @@ public class LexicalAnalysis {
             else if(c == 'H' || c == 'h') {
                 hex1();
             }
-            if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
+            else if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
                 writeInFile(search(s));
             }
             else {
                 er("Ошибка в чтении числа");
             }
+        }
+        else if(c == 'A' || c == 'B' || c == 'C' || c == 'D' || c == 'E' ||
+                c == 'F' || c == 'a' || c == 'b' || c == 'c' || c == 'd' ||
+                c == 'e' || c == 'f') {
+            hex();
+        }
+        else if(c == 'H' || c == 'h') {
+            hex1();
         }
         else {
             er("Ошибка в чтении числа");
@@ -525,16 +543,13 @@ public class LexicalAnalysis {
         if(c == '+' || c == '-') {
             s.append(c);
             c = gc();
-            while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
-                s.append(c);
-                c = gc();
-            }
-            if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
-                writeInFile(search(s));
-            }
-            else {
-                er("Ошибка в чтении числа");
-            }
+        }
+        while(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+            s.append(c);
+            c = gc();
+        }
+        if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
+            writeInFile(search(s));
         }
         else {
             er("Ошибка в чтении числа");

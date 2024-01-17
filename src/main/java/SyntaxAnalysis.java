@@ -501,12 +501,18 @@ public class SyntaxAnalysis {
             return true;
         }
         else if(unaryOperator()) {
-            if(multiplier()) {
+            if(booleanConstant()) {
                 checkNot();
                 return true;
             }
+            else if(lex.ID() && ti.get(lex.getIndex()).getType().equals("bool")) {
+                checkId();
+                checkNot();
+                gl();
+                return true;
+            }
             else {
-                er("Синтаксическая ошибка: не найден множитель после унарного оператора");
+                er("Синтаксическая ошибка: не найден булевый тип после унарного оператора");
                 return false;
             }
         }

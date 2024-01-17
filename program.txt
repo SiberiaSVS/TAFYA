@@ -1,20 +1,5 @@
 {
-	dim alfa, delta int;
-	dim beta, charly bool;
-
-	#Комментарий#
-
-	alfa := 55 + 51;
-	charly := false;
-	beta := not charly;
-
-	readln delta, alfa, beta, charly;
-
-	if(alfa < delta)
-		begin
-			alfa := alfa+23;
-			delta := alfa-1
-		end
-	else
-		charly := delta > alfa;
+	dim inta, intb int;
+	dim floata, floatb float;
+	dim boola, boolb bool;
 }
