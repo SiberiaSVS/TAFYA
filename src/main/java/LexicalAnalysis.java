@@ -70,6 +70,7 @@ public class LexicalAnalysis {
                 state = "V";
                 s.append(c);
                 writeInFile(search(s));
+                break;
             }
             //Комментарии
             else if(c == '#') {
@@ -532,7 +533,12 @@ public class LexicalAnalysis {
             hex1();
         }
         else {
-            er("Ошибка в чтении числа");
+            if(c == ' ' || c == '\n' || c == '\t' || matchesFirstCharInTL(c)) {
+                writeInFile(search(s));
+            }
+            else {
+                er("Ошибка в чтении числа");
+            }
         }
     }
 

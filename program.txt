@@ -2,4 +2,25 @@
 	dim inta, intb int;
 	dim floata, floatb float;
 	dim boola, boolb bool;
+
+	readln intb;
+	inta := 4e2;
+	floata := (inta + intb) / 1;
+
+	dim i int;
+	for i := 0 to i>5 step i<1
+		floata := 4e2
+	next;
+
+	writeln i;
+
+	while (boola <> not boolb)
+	begin
+		boola := boolb;
+		inta := inta + 1
+	end;
+
+	if(floata > floatb)
+		floata:=floatb;
+
 }
